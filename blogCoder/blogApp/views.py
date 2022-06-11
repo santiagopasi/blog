@@ -3,6 +3,8 @@ from django.shortcuts import render
 from django.contrib.auth.forms import AuthenticationForm,UserCreationForm
 from django.contrib.auth import login,authenticate,logout
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
+from .forms import UserEditForm
 
 # Create your views here.
 
@@ -50,4 +52,25 @@ def logout_request(request):
 
 def perfil(request):
     return render(request, 'perfil.html')
+
+#decorador que hace que solo pueda acceder a la vista si esta logueado
+@login_required
+def editar_perfil(request):
+
+    username=request.user.username
+
+    if request.method == 'POST':
+        form = UserEditForm(request.POST)
+        if form.is_valid():
+            info = form.cleaned_data
+            request.user.email = info['email']
+            psw = info['password1']
+            request.user.set_password(psw)
+            request.user.save()
+
+            render (request, 'perfil.html', {'mensaje':f"Usuario {username} modificado correctamente"})
+    else:
+        form = UserEditForm(initial={'email':request.user.email})
+    
+    return render(request, 'editar_perfil.html',{form:'form','username':username})
 

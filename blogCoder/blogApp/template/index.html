@@ -8,7 +8,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="Blog final Coder" />
         <meta name="author" content="Santiago Pasi Arias" />
-        <title>Web de Altec Cerramientos</title>
+        <title>Blog de Peliculas</title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="{%static 'blogApp/assets/favicon.ico' %}" />
         <!-- Bootstrap icons-->
@@ -25,10 +25,11 @@
         <!-- Navigation-->
         <nav class="navbar navbar-light bg-light static-top">
             <div class="container">
-                <a class="navbar-brand" href="#">Inicio</a>
-                <a class="navbar-brand" href="#">Publicaciones</a>
+                <a class="navbar-brand" href="{%url 'Inicio'%}">Inicio</a>
+                
                 <a class="navbar-brand" href="#">Buscar</a>
                 <a class="navbar-brand" href="#">Contacto</a>
+                <a class="navbar-brand" href="{%url 'Login'%}">Login</a>
                 
                     {% if user.is_authenticated %}
       
@@ -36,7 +37,7 @@
                       <a class="nav-link" href="{%url 'Logout'%}">Logout</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="{%url 'Perfil'%}">Bienvenido, {{user.username}}</a>
+                      <a class="nav-link" href="{%url 'Perfil'%}">Editar {{user.username}} perfil</a>
                     </li>
               
                     {% endif %}
@@ -44,14 +45,14 @@
                 
                 <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
-                      Empleados
+                      Top publicaciones
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
                         <a href="#">
-                      <li ><button class="dropdown-item" type="button" >Lista de Empleados</button></li>
+                      <li ><button class="dropdown-item" type="button" >Top 5</button></li>
                         </a>
                         <a href="#">
-                      <li ><button class="dropdown-item" type="button" >Añadir Empleados</button></li>
+                      <li ><button class="dropdown-item" type="button" >Ultimas publicaciones</button></li>
                         </a>
                     </ul>
                   </div>
