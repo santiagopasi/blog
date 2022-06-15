@@ -1,7 +1,17 @@
-from doctest import BLANKLINE_MARKER
+from .models import Post
 from django import forms
+from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+
+#creacion de posts
+class PostForm(ModelForm):
+   
+    class Meta:
+        model = Post
+        fields = '__all__'
+
+
 
 #me creo un custom registro para agregarle email
 class RegistroCustom(UserCreationForm):

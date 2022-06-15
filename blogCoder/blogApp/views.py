@@ -1,14 +1,42 @@
-from django.http import HttpResponse
 from django.shortcuts import render
-from django.contrib.auth.forms import AuthenticationForm,UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login,authenticate,logout
-from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from .forms import UserEditForm,RegistroCustom
+from .forms import UserEditForm,RegistroCustom,PostForm
+from .models import Post,Tag
 
 # Create your views here.
 
+def crear_post(request):
+    nuevo_post=PostForm()
+    tag1 = Tag.objects.crear_tag("Terror")
+    tag2 = Tag.objects.crear_tag("Suspenso")
+    tag3 = Tag.objects.crear_tag("Comedia")
+    tag4 = Tag.objects.crear_tag("Drama")
+    tag5 = Tag.objects.crear_tag("Accion")
+    if request.method == 'POST':
+        nuevo_post=PostForm(request.POST)
+        if nuevo_post.is_valid():
+            nuevo_post.save()   
+            return render(request, 'posts.html', {'mensaje':f"Post creado correctamente"})
+        else:
+            return render(request, 'crear_post.html', {'mensaje':f"Datos Incorrectos",'nuevo_post':nuevo_post})
+    
+    
+    return render(request, 'crear_post.html', {'nuevo_post':nuevo_post})
+def posts(request):
+    posts = Post.objects.all().order_by('-creado')
+    return render(request, 'posts.html', {'posts':posts})
 
+def post_individual(request,id):
+    post=Post.objects.get(id=id)
+    print(post.tags.all())
+    return render(request,'post.html',{'post':post})
+
+def eliminar_post(request,id):
+    post = Post.objects.get(id=id)
+    post.delete()
+    return render(request, 'eliminar_post.html', {'mensaje':f"Post eliminado correctamente"})
 def inicio(request):
     return render(request, 'index.html')
 def about(request):
@@ -36,7 +64,8 @@ def login_request(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                return render(request, 'index.html', {'mensaje':f"Bienvenido {username}"})
+                posts = Post.objects.all()
+                return render(request, 'posts.html', {'mensaje':f"Bienvenido {username}",'posts':posts})
             else:
                 form=AuthenticationForm()
                 return render(request, 'login.html', {'mensaje':f"Datos Incorrectos","form":form})

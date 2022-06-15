@@ -1,0 +1,26 @@
+{%extends 'index.html'%}
+
+{%load static %}
+
+    {%block content%}
+    
+    <h3 style="color: red">
+        {{mensaje}}
+    </h3>
+    
+
+{%if request.user.is_authenticated%}
+<form action="" method="POST">
+{%csrf_token%}
+{{nuevo_post.as_p}}
+<input type="submit" value="Crear Post" class="btn btn-secondary">
+</form>
+
+{%else%}
+<h3 style="color: rgb(255, 0, 149)">
+    Debes estar registrado o iniciar sesión para cargar un nuevo post
+</h3>
+{%endif%}
+
+
+    {%endblock content%}

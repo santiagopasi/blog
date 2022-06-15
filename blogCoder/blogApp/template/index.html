@@ -27,7 +27,8 @@
             <div class="container">
                 <a class="navbar-brand" href="{%url 'Inicio'%}">Inicio</a>
                 
-                <a class="navbar-brand" href="#">Buscar</a>
+                <a class="navbar-brand" href="{%url 'CrearPost'%}">Crear Post</a>
+                <a class="navbar-brand" href="{%url 'Posts'%}">Todos los posts</a>
                
                 <a class="navbar-brand" href="{%url 'Login'%}">Login</a>
                 
@@ -43,19 +44,7 @@
                     {% endif %}
                 
                 
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
-                      Top publicaciones
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                        <a href="#">
-                      <li ><button class="dropdown-item" type="button" >Top 5</button></li>
-                        </a>
-                        <a href="#">
-                      <li ><button class="dropdown-item" type="button" >Ultimas publicaciones</button></li>
-                        </a>
-                    </ul>
-                  </div>
+                
                 
             </div>
         </nav>
@@ -69,7 +58,7 @@
                         <div class="text-center text-white">
                             
                             <!-- Page heading-->
-                            <h1 class="mb-5">Blog - Final de Django en CoderHouse</h1>
+                            <h1 class="mb-5">Blog de Películas y Libros - Final de Django en CoderHouse</h1>
                             
                             
                             <!-- Signup form-->

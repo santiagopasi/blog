@@ -1,0 +1,41 @@
+{%extends 'index.html'%}
+
+{%load static %}
+
+    {%block content%}
+    
+
+<h1>
+    {{post.titulo}}
+</h1>
+<h2>
+    Creado por
+    {{post.creado_por}}
+</h2>
+    <h3 style="text-align: right;">
+        Creado
+        {{post.creado}}
+    </h3>
+    <h3 style="text-align: right;">
+        Última actualización
+        {{post.actualizado}}
+    </h3>
+    <div>
+        {{post.cuerpo}}
+    </div>
+        
+    
+    <h4>
+        
+        {{post.tags.all}}
+        
+    </h4>
+        
+    <h5>
+        Tipo de post:
+        {{post.tipo_post}}
+    </h5>
+   
+
+
+    {%endblock content%}
