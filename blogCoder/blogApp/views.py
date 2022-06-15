@@ -4,26 +4,27 @@ from django.contrib.auth.forms import AuthenticationForm,UserCreationForm
 from django.contrib.auth import login,authenticate,logout
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from .forms import UserEditForm
+from .forms import UserEditForm,RegistroCustom
 
 # Create your views here.
 
 
 def inicio(request):
     return render(request, 'index.html')
-def contacto(request):
-    return render(request, 'contacto.html')
+def about(request):
+    return render(request, 'about.html')
 
 def registro(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = RegistroCustom(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponse("Usuario creado correctamente")
+            return render(request, 'perfil.html', {'mensaje':f"Usuario creado correctamente"})
         else:
-            return HttpResponse("Datos incorrectos")
+            form=RegistroCustom()
+            return render(request, 'registro.html', {'mensaje':f"Datos Incorrectos","form":form})
     else:
-        form = UserCreationForm()
+        form = RegistroCustom()
         return render(request, 'registro.html', {'form': form})
 
 def login_request(request):
@@ -37,9 +38,11 @@ def login_request(request):
                 login(request, user)
                 return render(request, 'index.html', {'mensaje':f"Bienvenido {username}"})
             else:
-                return HttpResponse("Usuario o contraseña incorrectos")
+                form=AuthenticationForm()
+                return render(request, 'login.html', {'mensaje':f"Datos Incorrectos","form":form})
         else:
-            return HttpResponse("Datos incorrectos")
+            form=AuthenticationForm()
+            return render(request, 'login.html', {'mensaje':f"Datos Incorrectos","form":form})
     else:
         form = AuthenticationForm()
         return render(request, 'login.html', {'form': form})
@@ -58,7 +61,7 @@ def perfil(request):
 def editar_perfil(request):
 
     username=request.user.username
-
+    
     if request.method == 'POST':
         form = UserEditForm(request.POST)
         if form.is_valid():
@@ -68,9 +71,12 @@ def editar_perfil(request):
             request.user.set_password(psw)
             request.user.save()
 
-            render (request, 'perfil.html', {'mensaje':f"Usuario {username} modificado correctamente"})
+            return render(request, 'perfil.html', {'mensaje':f"Usuario {username} modificado correctamente"})
+
     else:
-        form = UserEditForm(initial={'email':request.user.email})
+        formulario = UserEditForm(initial={'email':request.user.email})
+        
+        return render(request, 'editar_perfil.html',{'formulario':formulario,'username':username})
     
-    return render(request, 'editar_perfil.html',{form:'form','username':username})
+    
 

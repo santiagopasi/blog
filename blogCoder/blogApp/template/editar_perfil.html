@@ -4,16 +4,13 @@
 
     {%block content%}
     
-<h1>Editar Perfil</h1>
-<h2>{{username}}</h2>
-
+<h1>Editar perfil de {{username}}</h1>
+    
 <form action="" method="POST">
+{%csrf_token%}
+{{formulario.as_p}}
+<input type="submit" value="Log in" class="btn btn-secondary">
 
-    {%csrf_token%}
-    {{form.as_p}}
-    
-    <input type="submit" value="Update" class="btn btn-secondary">
-    
 </form>
 
     {%endblock content%}

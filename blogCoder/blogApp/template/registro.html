@@ -3,7 +3,9 @@
 {%load static %}
 
     {%block content%}
-    
+    <h3 style="color: red">
+    {{mensaje}}
+    </h3>
 <form action="" method="POST">
 {%csrf_token%}
 {{form.as_p}}
