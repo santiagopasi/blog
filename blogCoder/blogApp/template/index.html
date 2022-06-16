@@ -29,17 +29,25 @@
                 
                 <a class="navbar-brand" href="{%url 'CrearPost'%}">Crear Post</a>
                 <a class="navbar-brand" href="{%url 'Posts'%}">Todos los posts</a>
-               
-                <a class="navbar-brand" href="{%url 'Login'%}">Login</a>
+                
+                
                 
                     {% if user.is_authenticated %}
       
-                    <li class="nav-item">
+                    
                       <a class="nav-link" href="{%url 'Logout'%}">Logout</a>
-                    </li>
-                    <li class="nav-item">
+                    
+                    
                       <a class="nav-link" href="{%url 'Perfil'%}">Editar {{user.username}} perfil</a>
-                    </li>
+                    
+                        <a href="{%url 'Inbox'%}">
+                            <img title="Ver tus mensajes" border="0" alt="Inbox" src="{%static 'blogApp\assets\img\inbox.gif'%}" width="100" height="100" >
+                        </a>
+                        
+                      
+                    
+                    {% else %}
+                    <a class="navbar-brand" href="{%url 'Login'%}">Login</a>
               
                     {% endif %}
                 
@@ -79,7 +87,8 @@
         
 
         <!-- Esto es lo que va a cambiar-->
-
+                    {{mensaje}}
+                    
                     {% block content %}
 
                     {% endblock content %}
@@ -102,14 +111,10 @@
                     <div class="col-lg-6 h-100 text-center text-lg-end my-auto">
                         <ul class="list-inline mb-0">
                             <li class="list-inline-item me-4">
-                                <a href="#!"><i class="bi-facebook fs-3"></i></a>
+                                <a href="https://www.facebook.com/pasisantiago/"><i class="bi-facebook fs-3"></i></a>
                             </li>
-                            <li class="list-inline-item me-4">
-                                <a href="#!"><i class="bi-twitter fs-3"></i></a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="#!"><i class="bi-instagram fs-3"></i></a>
-                            </li>
+                            
+                            
                         </ul>
                     </div>
                 </div>

@@ -1,24 +1,25 @@
+
 from django.db import models
 from django.contrib.auth.models import User
 
 
-# Create your models here.
-class TagManager(models.Manager):
-    def crear_tag(self, tag):
-        tag = self.create(tag=tag)
-        # do something with the book
-        return tag
+from .tests import validar_texto
+
+
+
+#mensajes entre users
+class Message(models.Model):
+     sender = models.ForeignKey(User, on_delete=models.CASCADE,related_name="sender")
+     reciever = models.ForeignKey(User, on_delete=models.CASCADE,related_name="reciever")
+     msg_content = models.CharField(max_length=400)
+     created_at = models.DateTimeField(auto_now_add=True)
 
 class Tag(models.Model):
-    tag = models.CharField(max_length=100)
-    
-    objects = TagManager()
+    tag = models.CharField(max_length=100,validators=[validar_texto])
+     
 
     def __str__(self):
         return self.tag
-
-    
-
 
 
 class Post(models.Model):
@@ -26,11 +27,23 @@ class Post(models.Model):
     cuerpo = models.TextField()
     creado = models.DateTimeField(auto_now_add=True)
     actualizado = models.DateTimeField(auto_now=True)
-    creado_por = models.ForeignKey(User, on_delete=models.CASCADE)
+    creado_por = models.ForeignKey(User ,on_delete=models.CASCADE)
     tags=models.ManyToManyField('Tag',blank=True)
+
+    def __str__(self):
+        return self.titulo
     class TipoPost(models.TextChoices):
         pelicula = 'Pelicula'
         libro='Libro'
         
     
     tipo_post = models.CharField(choices= TipoPost.choices, max_length=40)
+
+class Comentarios(models.Model):
+    comentario = models.TextField(max_length=500)
+    creado_por = models.ForeignKey(User, on_delete=models.CASCADE,related_name='creado_por')
+    creado = models.DateTimeField(auto_now_add=True)
+    creado_en=models.ForeignKey(Post, on_delete=models.CASCADE,related_name='creado_en')
+
+    def __str__(self):
+        return self.comentario

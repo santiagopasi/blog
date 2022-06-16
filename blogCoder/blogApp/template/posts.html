@@ -32,11 +32,18 @@
                 
                 <a href="{% url 'PostIndividual' post.id %}" class="btn btn-secondary">Ver</a>
             </td>
-            {%if request.user.is_authenticated%}
+            
+            {%if user.is_authenticated%}
+            {%if request.user.username == nombre_user %}
+            <td align="right">
+                
+                <a href="{% url 'EditarPost' post.id %}" class="btn btn-secondary">Editar</a>
+            </td>
             <td align="right">
                 
                 <a href="{% url 'EliminarPost' post.id %}" class="btn btn-danger">Eliminar</a>
             </td>
+            {%endif%}
             {%endif%}
             
         </tr>

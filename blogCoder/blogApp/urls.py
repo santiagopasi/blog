@@ -13,7 +13,10 @@ urlpatterns = [
     path('crear_post/',views.crear_post,name="CrearPost"),
     path('posts/',views.posts,name="Posts"),
     path('eliminar_post/<int:id>',views.eliminar_post,name="EliminarPost"),
-    path('post/<int:id>',views.post_individual,name="PostIndividual")
+    path('post/<int:id>',views.post_individual,name="PostIndividual"),
+    path('tags/',views.crear_tags,name="Tags"),
+    path('editar_post/<int:id>',views.editar_post,name="EditarPost"),
+    path('inbox/',views.mensajes,name="Inbox"),
     
    
    

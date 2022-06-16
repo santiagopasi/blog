@@ -13,6 +13,10 @@
 <form action="" method="POST">
 {%csrf_token%}
 {{nuevo_post.as_p}}
+<p>
+    <a href="{%url 'Tags'%}">No encontrás tu tag?</a>
+</p>
+    
 <input type="submit" value="Crear Post" class="btn btn-secondary">
 </form>
 
